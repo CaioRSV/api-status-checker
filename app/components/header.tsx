@@ -25,12 +25,12 @@ const Header = ({url}:HeaderProps) => {
     <>
     <div className={`w-full flex p-3 justify-center items-center bg-[rgba(0,0,0,0.2)]`}>
         <div className={`flex-1 p-2 flex justify-center items-center font-thin font-sans`}>
-          <p className={`text-lg text-green-300`}>Status das APIs</p>
+          <p className={`text-lg text-green-300`}>{url}</p>
         </div>
         <Button className={`rounded-lg`} color="inherit" onClick={()=>{setToast(true)}}>
           <CiShare1 size={20} className={`m-2`}/>
         </Button>
-
+        
         <Snackbar
             open={toast}
             autoHideDuration={3000}
@@ -38,6 +38,14 @@ const Header = ({url}:HeaderProps) => {
             message="Link da área de trabalho copiado"
             anchorOrigin={{vertical: "bottom" , horizontal: "right"}}
             action={action}
+            ContentProps={{
+              style:{
+                backgroundColor: 'rgb(0,0,5)',
+                color: 'white',
+                borderWidth: 1,
+                borderColor: 'rgba(21,128,61,0.5)' //green-700
+              }
+            }}
         />
           
     </div>
