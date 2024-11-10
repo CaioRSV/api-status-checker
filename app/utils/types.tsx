@@ -1,14 +1,17 @@
 
 // url pattern: labels=[...],urls=[...],tolerance=[...],redirect=[...]
 
-const onlyAccept = [[200,299]] as const // Read only - strict type
-const allowClientErrors = [[200,299], [400,499]] as const // Read only - strict type
+export const ToleranceTypeValues:Record<"onlyAccept" | "allowClientErrors", readonly [number, number][]> = {
+    onlyAccept: [[200,299]] as const,
+    allowClientErrors: [[200,299], [400,499]] as const,
+} as const;
 
-export type ToleranceType = "onlyAccept" | "allowClientErrors";
+export type ToleranceType = keyof typeof ToleranceTypeValues
 
-export const ToleranceTypeValues = {
-    onlyAccept, allowClientErrors
-}
+//Custom Typeguard Funtion
+export function isToleranceType(value:string): value is ToleranceType{ 
+    return Object.keys(ToleranceTypeValues).includes(value);
+} 
 
 export type ApiItem = {
     label: string,
@@ -19,3 +22,13 @@ export type ApiItem = {
 };
 
 export const separator = ",|"
+
+const testeApi:ApiItem = {
+    label: '1',
+    url: '2',
+    checkInterval: 1,
+    toleranceType: "onlyAccept",
+    allowRedirect: false,
+}
+
+// console.log(ToleranceTypeValues.onlyAccept);

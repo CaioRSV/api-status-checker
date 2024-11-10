@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 
 import Header from "./components/header";
 import Body from "./components/body";
-import { ApiItem, ToleranceType, ToleranceTypeValues, separator } from "./utils/types";
+import { ApiItem, ToleranceTypeValues, isToleranceType, separator } from "./utils/types";
 
 import { blueGrey, deepOrange } from '@mui/material/colors'
 
@@ -25,7 +25,7 @@ export default function Home() {
   
   const [labelList, setLabelList] = useState<string[]>();
   const [urlList, setUrlList] = useState<string[]>();
-  const [toleranceList, setToleranceList] = useState<ToleranceType[]>();
+  const [toleranceList, setToleranceList] = useState<keyof typeof ToleranceTypeValues[]>();
   const [redirectList, setRedirectList] = useState<boolean[]>();
   
   const params = useSearchParams();
@@ -50,11 +50,11 @@ export default function Home() {
         label: item,
         url: urls[index],
         checkInterval: parseInt(intervals[index]),
-        toleranceType: typeof tolerance[index] , // Gotta check the typing bro TOFIX!!!!!!!!!
-        allowRedirect: redirect[index],
+        toleranceType: isToleranceType(tolerance[index]) ? tolerance[index] : "onlyAccept", // Fallback: onlyAccept
+        allowRedirect: redirect[index].toLocaleLowerCase() == 'true',
       })
     })
-
+    
   }
 
   const addApiItem = (item: ApiItem) => {
