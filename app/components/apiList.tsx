@@ -9,6 +9,7 @@ const ApiList = ({viewGridMode}: ApiListProps) => {
   return (
     <div className={`w-full h-full bg-red-800`}>
         <p>{viewGridMode}</p>
+        {/* <p>{viewGridMode}</p>
         <p>{viewGridMode}</p>
         <p>{viewGridMode}</p>
         <p>{viewGridMode}</p>
@@ -67,8 +68,7 @@ const ApiList = ({viewGridMode}: ApiListProps) => {
         <p>{viewGridMode}</p>
         <p>{viewGridMode}</p>
         <p>{viewGridMode}</p>
-        <p>{viewGridMode}</p>
-        <p>{viewGridMode}</p>
+        <p>{viewGridMode}</p> */}
     </div>
   )
 }
