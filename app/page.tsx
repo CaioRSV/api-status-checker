@@ -37,13 +37,28 @@ export default function Home() {
     if(!(labels && urls && intervals && tolerance && redirect)) {setUrl(process.env.NEXT_PUBLIC_BASE_URL ?? ''); return;}
     if([labels, urls, intervals, tolerance, redirect].some(item => {item.length != labels.length})) {setUrl(process.env.NEXT_PUBLIC_BASE_URL ?? ''); return;}
 
-    return [labels, urls, intervals, tolerance, redirect];
+    return {
+      labels,
+      urls,
+      intervals,
+      tolerance,
+      redirect
+    };
   }
 
   const urlApisPopulation = () => {
 
-    const ParamsSet = assureUrlObjects();
-    const [labels, urls, intervals, tolerance, redirect] = ParamsSet;
+    const paramsObject = assureUrlObjects();
+    if(!paramsObject) return;
+    
+    const {
+      labels,
+      urls,
+      intervals,
+      tolerance,
+      redirect
+    } = paramsObject;
+
     // Populating the ApiList
     let apiItems:ApiItem[] = [];
 
@@ -68,14 +83,24 @@ export default function Home() {
 
     // Update URL
 
-    const labels = params.get("labels")?.split(separator);
-    const urls = params.get("urls")?.split(separator);
-    const intervals = params.get("intervals")?.split(separator);
-    const tolerance = params.get("tolerance")?.split(separator);
-    const redirect = params.get("redirect")?.split(separator);
-    labels?.push(item.label);
-    urls?.push()
-    //setUrl(url)
+    const labelsRaw = apiList.map(item => {item.label});
+    const labelPart = `labels=`+labelsRaw.join(',|');
+
+    const urlsRaw = apiList.map(item => {item.url});
+    const urlPart = `urls=`+urlsRaw.join(',|');
+
+    const intervalRaw = apiList.map(item => {item.checkInterval});
+    const intervalPart = `interval=`+intervalRaw.join(',|');
+
+    const toleranceRaw = apiList.map(item => {item.toleranceType});
+    const tolerancePart = `tolerance=`+toleranceRaw.join(',|');
+
+    const redirectRaw = apiList.map(item => {item.allowRedirect});
+    const redirectPart = `redirect=`+redirectRaw.join(',|');
+
+    console.log('___');
+    console.log(apiList);
+    console.log(`${url}/${[labelPart, urlPart, intervalPart, tolerancePart, redirectPart].join('&')}`);
   }
 
   const removeApiItem = (item: ApiItem) => {
@@ -90,6 +115,13 @@ export default function Home() {
     <ThemeProvider theme={theme}>
       <div className={`bg-gradient-to-b from-black to-teal-950 w-screen h-screen min-h-fit`}>
         <div className="w-full h-full flex justify-center items-center min-h-fit">
+          <div className={`bg-red-800 p-2 text-white`} onClick={()=>{addApiItem({
+            label: "teste_",
+            url: "_url_",
+            checkInterval: 0,
+            toleranceType: "onlyAccept",
+            allowRedirect: true
+          })}}>CLIQUE AQUI</div>
           <div className={`
                 m-4
                 h-full sm:h-[500px] 

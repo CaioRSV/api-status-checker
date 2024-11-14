@@ -1,5 +1,9 @@
 
-// url pattern: labels=[...],urls=[...],tolerance=[...],redirect=[...]
+// url pattern: labels=[...],urls=[...],interval=[...],tolerance=[...],redirect=[...]
+
+// Ex:
+// http://localhost:3000/?labels=testLabel&urls=123url&intervals=5&tolerance=onlyAccept&redirect=true
+// http://localhost:3000/?labels=testLabel,|dois2&urls=123url,|321url&intervals=5,|10&tolerance=onlyAccept,|onlyAccept&redirect=true,|false
 
 export const ToleranceTypeValues:Record<"onlyAccept" | "allowClientErrors", readonly [number, number][]> = {
     onlyAccept: [[200,299]] as const,
@@ -22,13 +26,3 @@ export type ApiItem = {
 };
 
 export const separator = ",|"
-
-const testeApi:ApiItem = {
-    label: '1',
-    url: '2',
-    checkInterval: 1,
-    toleranceType: "onlyAccept",
-    allowRedirect: false,
-}
-
-// console.log(ToleranceTypeValues.onlyAccept);
