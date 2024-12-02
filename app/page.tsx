@@ -115,20 +115,24 @@ export default function Home() {
     <ThemeProvider theme={theme}>
       <div className={`bg-gradient-to-b from-black to-teal-950 w-screen h-screen min-h-fit`}>
         <div className="w-full h-full flex justify-center items-center min-h-fit">
-          <div className={`bg-red-800 p-2 text-white`} onClick={()=>{addApiItem({
+          {/* <div className={`bg-red-800 p-2 text-white`} onClick={()=>{addApiItem({
             label: "teste_",
             url: "_url_",
             checkInterval: 0,
             toleranceType: "onlyAccept",
             allowRedirect: true
-          })}}>CLIQUE AQUI</div>
+          })}}>CLIQUE AQUI</div> */}
           <div className={`
                 m-4
-                h-full sm:h-[500px] 
+                sm:min-h-[500px] 
+                sm:h-[50%]
                 max-h-full
+                sm:max-h-[90%]
                 min-h-fit
-                w-full sm:w-[1020px] 
-                max-w-full 
+                w-full 
+                sm:min-w-[1020px]
+                max-w-full
+                sm:max-w-[60%]
                 bg-[rgba(0,0,15,1)]
                 rounded-md 
                 border border-green-700
